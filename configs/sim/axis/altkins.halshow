@@ -1,0 +1,13 @@
+pin+altkins.kins-method
+
+pin+joint.0.motor-pos-cmd
+pin+joint.1.motor-pos-cmd
+pin+joint.2.motor-pos-cmd
+
+pin+joint.0.motor-offset
+pin+joint.1.motor-offset
+pin+joint.2.motor-offset
+
+pin+axis.x.pos-cmd
+pin+axis.y.pos-cmd
+pin+axis.z.pos-cmd

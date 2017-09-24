@@ -925,6 +925,9 @@ tripodkins-objs := emc/kinematics/tripodkins.o
 obj-m += corexykins.o
 corexykins-objs := emc/kinematics/corexykins.o
 
+obj-m += altkins.o
+altkins-objs := emc/kinematics/altkins.o
+
 obj-m += lineardeltakins.o
 lineardeltakins-objs := emc/kinematics/lineardeltakins.o
 
@@ -1072,6 +1075,7 @@ endif
 ../rtlib/rotatekins$(MODULE_EXT): $(addprefix objects/rt,$(rotatekins-objs))
 ../rtlib/tripodkins$(MODULE_EXT): $(addprefix objects/rt,$(tripodkins-objs))
 ../rtlib/corexykins$(MODULE_EXT): $(addprefix objects/rt,$(corexykins-objs))
+../rtlib/altkins$(MODULE_EXT): $(addprefix objects/rt,$(altkins-objs))
 ../rtlib/lineardeltakins$(MODULE_EXT): $(addprefix objects/rt,$(lineardeltakins-objs))
 ../rtlib/genhexkins$(MODULE_EXT): $(addprefix objects/rt,$(genhexkins-objs))
 ../rtlib/genserkins$(MODULE_EXT): $(addprefix objects/rt,$(genserkins-objs))

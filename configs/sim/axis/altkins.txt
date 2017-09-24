@@ -1,0 +1,35 @@
+altkins -- demo of alternate kinematics selection
+    
+altkins.c:
+   Two kinematics methods controlled by halpin altkins.kins-method:
+     k0:  j0->x, j1-->y, j2-->z
+     k1:  j0->z, j1-->y, j2-->x (switches joints for x and z)
+    
+
+altkins.ini (demo using axis gui)
+  uses [KINS]KINEMATICS = altkins
+  starts sim_pin app to control halpin altkins.kins-method
+  starts halshow app to show:
+         altkins.kins-method (actual value is this modulo 2)
+         joint.N.motor-pos-cmd,motor-offset (N=0,1,2)
+         axis.L.pos-cmd                     (L=x,y,z)
+  starts halscope app to show:
+         altkins.kins-method (use as trigger)
+         joint.N.motor-pos-cmd (N=0,2)
+
+Usage Example:
+  1) estop off, machine-on
+  2) jog joint 0 to establish nonzero values for
+     joint.0.motor-pos-cmd, joint.0.motor-offset
+  3) Home-all (auto switch to world mode)
+  4) jog axis X, note changes joint.0.motor-pos-cmd
+  5) use sim_pin to select kins-method==1
+     observe: joint.0.motor-pos-cmd unchanged
+
+  6) jog X, note now changes joint.2.motor-pos-cmd
+  7) use sim_pin to select kins-method==0
+     observe: joint.0.motor-pos-cmd unchanged
+              joint.2.motor-pos-cmd unchanged
+  8) etc.
+
+
