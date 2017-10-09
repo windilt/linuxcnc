@@ -41,33 +41,33 @@ static double correction1[EMCMOT_MAX_JOINTS];
 
 //forward declarations ----------------------------------------------
 static int k0_Forward(const double *joints
-              ,EmcPose *pos
-              ,const KINEMATICS_FORWARD_FLAGS *fflags
-              ,KINEMATICS_INVERSE_FLAGS *iflags
-              );
+                     ,EmcPose *pos
+                     ,const KINEMATICS_FORWARD_FLAGS *fflags
+                     ,KINEMATICS_INVERSE_FLAGS *iflags
+                     );
 static int k1_Forward(const double *joints
-              ,EmcPose *pos
-              ,const KINEMATICS_FORWARD_FLAGS *fflags
-              ,KINEMATICS_INVERSE_FLAGS *iflags
-              );
+                     ,EmcPose *pos
+                     ,const KINEMATICS_FORWARD_FLAGS *fflags
+                     ,KINEMATICS_INVERSE_FLAGS *iflags
+                     );
 static int k0_Inverse(const EmcPose *pos
-              ,double *joints
-              ,const KINEMATICS_INVERSE_FLAGS *iflags
-              ,const KINEMATICS_FORWARD_FLAGS *fflags
-              );
+                     ,double *joints
+                     ,const KINEMATICS_INVERSE_FLAGS *iflags
+                     ,const KINEMATICS_FORWARD_FLAGS *fflags
+                     );
 static int k1_Inverse(const EmcPose *pos
-              ,double *joints
-              ,const KINEMATICS_INVERSE_FLAGS *iflags
-              ,const KINEMATICS_FORWARD_FLAGS *fflags
-              );
+                     ,double *joints
+                     ,const KINEMATICS_INVERSE_FLAGS *iflags
+                     ,const KINEMATICS_FORWARD_FLAGS *fflags
+                     );
 //-------------------------------------------------------------------
 
 
 static int k0_Forward(const double *joints
-              ,EmcPose *pos
-              ,const KINEMATICS_FORWARD_FLAGS *fflags
-              ,KINEMATICS_INVERSE_FLAGS *iflags
-              ) {
+                     ,EmcPose *pos
+                     ,const KINEMATICS_FORWARD_FLAGS *fflags
+                     ,KINEMATICS_INVERSE_FLAGS *iflags
+                     ) {
     pos->tran.x = joints[0];
     pos->tran.y = joints[1];
     pos->tran.z = joints[2];
@@ -78,16 +78,16 @@ static int k0_Forward(const double *joints
     pos->v      = joints[7];
     pos->w      = joints[8];
     return 0;
-}
+} // k0_Forward()
 
 static int k1_Forward(const double *joints
-              ,EmcPose *pos
-              ,const KINEMATICS_FORWARD_FLAGS *fflags
-              ,KINEMATICS_INVERSE_FLAGS *iflags
-              ) {
-    pos->tran.x = joints[2]; // switch x,z
-    pos->tran.y = joints[1];
-    pos->tran.z = joints[0]; // switch x,z
+                     ,EmcPose *pos
+                     ,const KINEMATICS_FORWARD_FLAGS *fflags
+                     ,KINEMATICS_INVERSE_FLAGS *iflags
+                     ) {
+    pos->tran.x = joints[1]; // switch x,y
+    pos->tran.y = joints[0]; // switch x,y
+    pos->tran.z = joints[2];
     pos->a      = joints[3];
     pos->b      = joints[4];
     pos->c      = joints[5];
@@ -95,13 +95,13 @@ static int k1_Forward(const double *joints
     pos->v      = joints[7];
     pos->w      = joints[8];
     return 0;
-}
+} // k1_Forward()
 
 static int compute_correction(const double *joints
-                      ,const EmcPose *pos
-                      ,const KINEMATICS_FORWARD_FLAGS *fflags
-                      ,const KINEMATICS_INVERSE_FLAGS *iflags
-                      ) {
+                             ,const EmcPose *pos
+                             ,const KINEMATICS_FORWARD_FLAGS *fflags
+                             ,const KINEMATICS_INVERSE_FLAGS *iflags
+                             ) {
     int jno;
     double jt0[EMCMOT_MAX_JOINTS];
     double jt1[EMCMOT_MAX_JOINTS];
@@ -114,7 +114,7 @@ static int compute_correction(const double *joints
         correction1[jno] = joints[jno] -jt1[jno]; // add for method 1
     }
     return 0;
-}
+} // compute_correction()
 
 int kinematicsForward(const double *joints
                      ,EmcPose *pos
@@ -152,13 +152,13 @@ int kinematicsForward(const double *joints
                  break;
     }
     return 0;
-}
+} // kinematicsForward()
 
 static int k0_Inverse(const EmcPose *pos
-              ,double *joints
-              ,const KINEMATICS_INVERSE_FLAGS *iflags
-              ,const KINEMATICS_FORWARD_FLAGS *fflags
-              ) {
+                     ,double *joints
+                     ,const KINEMATICS_INVERSE_FLAGS *iflags
+                     ,const KINEMATICS_FORWARD_FLAGS *fflags
+                     ) {
     joints[0] = pos->tran.x;
     joints[1] = pos->tran.y;
     joints[2] = pos->tran.z;
@@ -169,16 +169,16 @@ static int k0_Inverse(const EmcPose *pos
     joints[7] = pos->v;
     joints[8] = pos->w;
     return 0;
-}
+} // k0_Inverse()
 
 static int k1_Inverse(const EmcPose *pos
-              ,double *joints
-              ,const KINEMATICS_INVERSE_FLAGS *iflags
-              ,const KINEMATICS_FORWARD_FLAGS *fflags
-              ) {
-    joints[0] = pos->tran.z; // switch x,z
-    joints[1] = pos->tran.y;
-    joints[2] = pos->tran.x; // switch x,z
+                     ,double *joints
+                     ,const KINEMATICS_INVERSE_FLAGS *iflags
+                     ,const KINEMATICS_FORWARD_FLAGS *fflags
+                     ) {
+    joints[0] = pos->tran.y; // switch x,y
+    joints[1] = pos->tran.x; // switch x,y
+    joints[2] = pos->tran.z;
     joints[3] = pos->a;
     joints[4] = pos->b;
     joints[5] = pos->c;
@@ -186,7 +186,7 @@ static int k1_Inverse(const EmcPose *pos
     joints[7] = pos->v;
     joints[8] = pos->w;
     return 0;
-}
+} // k1_Inverse()
 
 int kinematicsInverse(const EmcPose *pos
                      ,double *joints
@@ -221,7 +221,7 @@ int kinematicsInverse(const EmcPose *pos
         kmethod_changed = 0;
     }
     return 0;
-}
+} // kinematicsInverse()
 
 int kinematicsHome(EmcPose *world
                   ,double *joint
@@ -231,7 +231,7 @@ int kinematicsHome(EmcPose *world
     *fflags = 0;
     *iflags = 0;
     return kinematicsForward(joint, world, fflags, iflags);
-}
+} // kinematicsHome()
 
 KINEMATICS_TYPE kinematicsType() { return KINEMATICS_BOTH; }
 
@@ -264,6 +264,6 @@ int rtapi_app_main(void) {
 error:
     hal_exit(comp_id);
     return answer;
-}
+} // rtapi_app_main()
 
 void rtapi_app_exit(void) { hal_exit(comp_id); }

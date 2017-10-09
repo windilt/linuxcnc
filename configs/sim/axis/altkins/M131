@@ -1,0 +1,12 @@
+#!/bin/bash
+# toggle $PIN
+PIN=altkins.kins-method
+prog=$(basename $0)
+
+oldvalue=$(halcmd getp altkins.kins-method) 
+newvalue=$(( (oldvalue+1)%2 ))
+halcmd setp altkins.kins-method $newvalue
+
+echo
+echo "$prog TOGGLE $PIN: $oldvalue-->$(halcmd getp $PIN)"
+exit 0

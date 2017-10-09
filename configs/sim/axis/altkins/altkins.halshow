@@ -11,3 +11,8 @@ pin+joint.2.motor-offset
 pin+axis.x.pos-cmd
 pin+axis.y.pos-cmd
 pin+axis.z.pos-cmd
+
+pin+halui.axis.x.pos-commanded
+pin+halui.axis.x.pos-feedback
+pin+halui.axis.y.pos-commanded
+pin+halui.axis.y.pos-feedback

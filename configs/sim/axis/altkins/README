@@ -1,0 +1,25 @@
+altkins -- demo of alternate kinematics selection
+    
+altkins.c implements two kinematics methods controlled by halpin:
+  altkins.kins-method:
+
+  k0:  j0-->x, j1-->y, j2-->z
+  k1:  j0-->y, j1-->x, j2-->z (switches joints for x and y)
+
+Notes:
+
+1) All kinematics methods (k0,k1) report as KINEMATICS_BOTH
+
+2) All joints must be homed before world moves (GCODE or MDI)
+
+3) When the kinematics method is toggled, the current world
+   joint (j0,j1,j2) values are preserved so there would be
+   no bump in the prime movers (motors) for each joint.
+
+   The world coordinates (x,y,z) are also preserved at the
+   transition of kinematics methods.
+
+   Consequently, both the forward and the inverse kinematics
+   become dependent on the position value in effect when
+   the kinematics method is changed.
+   

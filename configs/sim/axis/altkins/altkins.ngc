@@ -1,0 +1,20 @@
+   #<rpt_ct> =  20
+      #<x1>  =   2
+      #<y1>  =   1
+#<feedrate>  = 100
+f#<feedrate>
+
+g0 x0y0z0
+o<rpt> repeat [#<rpt_ct>]
+         g1 x#<x1> y#<y1>
+         m131 ;toggle kins-method
+         g1 x0 y0 z0
+
+         m131 ;toggle kins-method
+         g1 x[-#<x1>] y[-#<y1>]
+
+         m131 ;toggle kins-method
+         g1 x0 y0 z0
+o<rpt> endrepeat
+
+m2
